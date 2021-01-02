@@ -22,5 +22,6 @@ export default class parent extends User implements parentInetrface{
     
 }
 
+console.log('test')
 parent.belongsTo(User)
 parent.belongsToMany(Abonnement, { through: parent_has_Abonnement });
