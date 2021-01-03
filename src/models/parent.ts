@@ -20,6 +20,7 @@ export interface parentInetrface {
 
 export default class parent extends User {
     User_id:number | null | undefined
+   
     
 }
 
@@ -37,5 +38,5 @@ parent.init({
 )
 
 console.log('test')
-parent.belongsTo(User,{foreignKey:'id'})
+parent.belongsTo(User,{foreignKey:'User_id'})
 //parent.belongsToMany(Abonnement, { through: parent_has_Abonnement });

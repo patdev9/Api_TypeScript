@@ -2,6 +2,7 @@ import { sequelize } from '../db/database';
 import EmailException from '../exception/EmailException';
 import PasswordException from '../exception/PasswordException';
 import { Abonnement } from './abonnement';
+import parent from './parent';
 
 
 import {Sequelize,
@@ -104,4 +105,5 @@ User.init(
       sequelize, // passing the `sequelize` instance is required
     }
   );
+
   

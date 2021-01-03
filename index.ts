@@ -9,6 +9,7 @@ import { registerMidd, loginMidd } from './src/middlewares/auth.middleware';
 import { AuthController } from './src/controller/auth';
 import Stripe from 'stripe'
 import { AuthentificationRoute } from "./src/routes/user";
+import parent from './src/models/parent';
 
 
 
@@ -38,7 +39,7 @@ config()
 
 
 sequelize.authenticate().then(async ()=>{
-    const users = await User.findAll(({where:{email:'pp@pp.pp'}}));
+    const users = await User.findAll(({ where:{email:'pp@pp.pp'}}));
 console.log(users.every(user => user instanceof User)); // true
 console.log("All users:", JSON.stringify(users, null, 2));
 }).catch( (e:any)=>{
