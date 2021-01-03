@@ -45,14 +45,18 @@ export class AuthController {
         }
 
             const pass = await PasswordException.hashPassword(data.password);
-            const user = await parent.create({
+            const user = await User.create({
                 id:null,
                 firstname: data.firstname,
                 lastname:data.lastname,
                 email:data.email,
                 password:pass,
                 date_naissance:data.date_naissance,
-                sexe:data.sexe
+                sexe:data.sexe,
+                
+            })
+            const papa = await parent.create({
+                User_id:user.id
             })
             console.log(user.id)
             

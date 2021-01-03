@@ -31,7 +31,7 @@ export interface UserInterface{
 
 
 
-export default class User extends Model<UserInterface> implements UserInterface{
+export default class User extends Model{
 
     
     public id!:number;
@@ -104,4 +104,4 @@ User.init(
       sequelize, // passing the `sequelize` instance is required
     }
   );
-  User.belongsToMany(Abonnement, { through: User_has_Abonnement });
+  

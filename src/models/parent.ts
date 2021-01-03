@@ -13,15 +13,29 @@ import {Sequelize,
     HasManyCountAssociationsMixin,
     HasManyCreateAssociationMixin,
     Optional,} from 'sequelize'
+
 export interface parentInetrface {
-    user_id:number| null | undefined;
+    User_id:number| null | undefined;
 }
 
-export default class parent extends User implements parentInetrface{
-    user_id:number | null | undefined
+export default class parent extends User {
+    User_id:number | null | undefined
     
 }
 
+parent.init({
+   User_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        primaryKey: true,
+      },
+    },
+      {
+        tableName: "parent",
+        timestamps: false,
+        sequelize, // passing the `sequelize` instance is required
+      }
+)
+
 console.log('test')
-parent.belongsTo(User)
-parent.belongsToMany(Abonnement, { through: parent_has_Abonnement });
+parent.belongsTo(User,{foreignKey:'id'})
+//parent.belongsToMany(Abonnement, { through: parent_has_Abonnement });
