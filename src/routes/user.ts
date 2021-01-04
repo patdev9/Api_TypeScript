@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import {registerMidd, loginMidd, authMidd } from '../middlewares/auth.middleware';
 import { AuthController } from '../controller/auth';
+import CartController from '../controller/cart';
 
 
 
@@ -13,6 +14,7 @@ route.get('/', authMidd, (req: any, res: any) => {
 })
 route.post('/login', loginMidd, AuthController.login)
 route.post('/register', registerMidd, AuthController.register)
+route.post('/cart',authMidd, CartController.addCart)
 
 
 export { route as AuthentificationRoute }

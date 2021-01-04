@@ -32,7 +32,6 @@ const createCustomer = async () => {
     
   
     const customer: Stripe.Customer = await stripe.customers.create(params);
-      console
     console.log(customer.id);
   };
 

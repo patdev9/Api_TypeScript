@@ -26,15 +26,15 @@ cart.init({
         primaryKey: true,
       },
       Cart_number: {
-        type: new DataTypes.STRING(128),
+        type:  DataTypes.STRING(128),
         allowNull: false,
       },
       month:{
-        type: new DataTypes.STRING(128),
+        type: DataTypes.STRING(128),
         allowNull: false,
       },
       year:{
-        type: new DataTypes.STRING(128),
+        type: DataTypes.STRING(128),
         allowNull: false,
       },
       default:{
@@ -43,12 +43,17 @@ cart.init({
           defaultValue:0
       },
       parent_User_id:{
-          type: new DataTypes.INTEGER.UNSIGNED,
-          primaryKey:true
+          type: DataTypes.INTEGER.UNSIGNED,
+          allowNull: false,
+          references:{
+            model:parent,
+            key:'User_id'
+          }
       }
 }, {
     tableName: "Carte_Bancaire",
+    timestamps: false,
     sequelize, // passing the `sequelize` instance is required
   }
 )
-cart.belongsTo(parent,{foreignKey:'parent_User_id'})
+//cart.belongsTo(parent,{foreignKey:'User_id'})
