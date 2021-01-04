@@ -1,16 +1,21 @@
 import { verify } from 'jsonwebtoken';
+import { Request, Response } from 'express';
 import DateException from '../exception/DateException';
 import EmailException from '../exception/EmailException';
 import PasswordException from '../exception/PasswordException';
 
 const split = (token: string) => { return token.split('Bearer ').join('') }
 
-export const authMidd = (req: any, res: any, next: () => void) => {
+export const authMidd = (req: Request, res: Response, next: () => void) => {
 
-    // req.header.authorization = 'Bearer opfokre65ze4f6ez54f6ez4f6z4f6ze87f6ez4fe8z7fze486fez68fe6z5f4e6z54f8ef864ez84fe8ze.9e4fz9e64f6e5z4f6ez54f654ez
+   
     try {
-        if (req.header.authorization && verify(split(req.header.authorization), < string > process.env.JWT_KEY))
+        if (req.headers.authorization && verify(split(req.headers.authorization), < string > process.env.JWT_KEY)){
+            let authorization = req.headers.authorization, decoded:any;
+            decoded = verify(split(req.headers.authorization), < string > process.env.JWT_KEY);
+            console.log(decoded)
             return next()
+        }
         else
             throw new Error(`Authorization not found`)
     } catch (err) {

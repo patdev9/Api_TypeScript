@@ -5,29 +5,34 @@ import { sequelize } from './src/db/database';
 import bodyParser from "body-parser";
 import cors from "cors";
 import User from './src/models/user';
-import { registerMidd, loginMidd } from './src/middlewares/auth.middleware';
+import { registerMidd, loginMidd, authMidd } from './src/middlewares/auth.middleware';
 import { AuthController } from './src/controller/auth';
 import Stripe from 'stripe'
 import { AuthentificationRoute } from "./src/routes/user";
 import parent from './src/models/parent';
+import { Request, Response } from 'express';
+
 
 
 
 const stripe = new Stripe(`${process.env.STRIP_KEY}`,{
     apiVersion: '2020-08-27',
   });
-(async () => {
-    const account = await stripe.accounts.create({
-        type: 'express',
+const a = async () => {
+    const products = await stripe.products.list({
+        limit: 3,
       });
-});
+      console.log(products.data)
+};
 const createCustomer = async () => {
     const params: Stripe.CustomerCreateParams = {
       description: 'test customer',
+
     };
+    
   
     const customer: Stripe.Customer = await stripe.customers.create(params);
-  
+      console
     console.log(customer.id);
   };
 
@@ -37,7 +42,7 @@ app.use(bodyParser.json())
 
 config()
 
-
+a()
 sequelize.authenticate().then(async ()=>{
     const users = await User.findAll(({ where:{email:'pp@pp.pp'}}));
 console.log(users.every(user => user instanceof User)); // true
@@ -52,6 +57,11 @@ app.get('/', function (req, res) {
 app.use('/auth', AuthentificationRoute);
 app.post('/register', registerMidd, AuthController.register)
 app.post('/login', loginMidd, AuthController.login)
+
+app.get('/hello', authMidd, (req: Request, res: Response) => {
+    return res.send('<h1>OOUUUIII tu es connecté</h1>')
+})
+
 console.log(process.env.DB_SEQ)
 console.log('hello')
  console.log(process.env.STRIP_KEY)

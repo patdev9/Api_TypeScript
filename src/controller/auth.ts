@@ -5,6 +5,7 @@ import PasswordException from '../exception/PasswordException';
 import { strictLeft } from 'sequelize/types/lib/operators';
 import parent from '../models/parent';
 import { sequelize } from '../db/database';
+import expressJwt from 'express-jwt'
 
 
 
@@ -23,14 +24,15 @@ export class AuthController {
 
             if (!isOk)
                 throw new Error(`User is undefined!`)
-
-            const theToken: any = await sign({ id: client.personne_idpersonne, name: client.fullname }, < string > process.env.JWT_KEY, { expiresIn: '1m' })
+            console.log(client)
+            const theToken: any = await sign({ id: client.id, email: client.email }, < string > process.env.JWT_KEY, { expiresIn: '5m' })
 
             const token = {
                 token: theToken,
                 expired: await ( < any > decode(theToken)).exp
             }
-            return res.status(201).json(token);
+            const {id,email}=client
+            return res.status(201).json({token,client:{id,email}});
         } catch (err) {
             return res.status(401).json({ error: true, message: err.message }).end();
         }
@@ -64,7 +66,10 @@ export class AuthController {
        }
        catch(err){
         return res.status(401).json({ error: true, message: err.message }).end();
-       }
-       
+       } 
     }
+  
+    
+    
+    
 }
