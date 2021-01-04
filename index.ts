@@ -1,4 +1,6 @@
 import express from 'express'
+
+
 const app = express()
 import { config } from "dotenv";
 import { sequelize } from './src/db/database';
