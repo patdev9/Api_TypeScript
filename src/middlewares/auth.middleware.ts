@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import DateException from '../exception/DateException';
 import EmailException from '../exception/EmailException';
 import PasswordException from '../exception/PasswordException';
+import { userInfo } from 'os';
 
 const split = (token: string) => { return token.split('Bearer ').join('') }
 
@@ -23,6 +24,8 @@ export const authMidd = (req: Request, res: Response, next: () => void) => {
     }
 
 }
+
+
 
 
 export const registerMidd = (req: any, res: any, next: () => void) => {

@@ -55,7 +55,6 @@ export class AuthController {
                 password:pass,
                 date_naissance:data.date_naissance,
                 sexe:data.sexe,
-                
             })
             const papa = await parent.create({
                 User_id:user.id
@@ -68,8 +67,5 @@ export class AuthController {
         return res.status(401).json({ error: true, message: err.message }).end();
        } 
     }
-  
-    
-    
-    
+   
 }

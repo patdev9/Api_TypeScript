@@ -2,6 +2,7 @@ import { sequelize } from '../db/database';
 import User from './user';
 import {UserInterface } from './user';
 import { Abonnement } from './abonnement';
+import parent from './parent';
 import {Sequelize,
     Model,
     ModelDefined,
@@ -14,35 +15,34 @@ import {Sequelize,
     HasManyCreateAssociationMixin,
     Optional,} from 'sequelize'
 
-export interface parentInetrface {
-    User_id:number| null | undefined;
-}
 
-export default class parent extends User {
+
+export default class enfant extends User {
     User_id:number | null | undefined
-    Subscription?:number
+    parent_User_id?:number
 }
 
-parent.init({
+enfant.init({
    User_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         primaryKey: true,
       },
-   Subscription: {
-        type: DataTypes.TINYINT,
-        allowNull: true,
-        defaultValue:0
+   parent_User_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        primaryKey: true,
       },
+   
     },
     
       {
-        tableName: "parent",
+        tableName: "enfant",
         timestamps: false,
         sequelize, // passing the `sequelize` instance is required
       }
 )
 
 console.log('test')
-parent.belongsTo(User,{foreignKey:'User_id'})
+enfant.belongsTo(User,{foreignKey:'User_id'})
+
 //Abonnement.belongsToMany(Abonnement,{through:'parent_has_abonnement'})
 //parent.belongsToMany(Abonnement, { through: parent_has_Abonnement });

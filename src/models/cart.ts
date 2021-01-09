@@ -16,7 +16,11 @@ import {Sequelize,
     Optional,} from 'sequelize'
 
 export class cart extends Model{
-    
+  id!:number 
+  Cart_number!:number 
+  month!:number 
+  year!:number 
+  default!:number 
 }
 
 cart.init({
@@ -56,4 +60,5 @@ cart.init({
     sequelize, // passing the `sequelize` instance is required
   }
 )
-//cart.belongsTo(parent,{foreignKey:'User_id'})
+
+cart.belongsTo(parent,{foreignKey:'parent_User_id'})
