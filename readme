@@ -1,0 +1,3 @@
+Pour créer l'abonnement il faut decommenter la fonction abonnement dans index.ts 
+Je n'ai pas fais de build
+Je lance l'application avec npm run debug
