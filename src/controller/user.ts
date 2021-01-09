@@ -76,8 +76,12 @@ export class UserController{
             let authorization = req.headers.authorization, decoded:any;
                     decoded = verify(split(req.headers.authorization), < string > process.env.JWT_KEY);
                     const papa = await parent.findOne({ where: { User_id: decoded.id } })
-                    if (papa)
-                    return next()
+                    if (papa){
+                        return next()
+                    }
+                    else{
+                        return res.status(403).json({error:true,message:'Vous n etes pas autoriser  faire ca'})
+                    }
         }
 
         static childdelete = async(req:Request,res:Response)=>{
@@ -100,9 +104,9 @@ export class UserController{
             let authorization = req.headers.authorization, decoded: any;
             decoded = verify(split(req.headers.authorization), <string>process.env.JWT_KEY);
             try{
-                let bebe = enfant.findAll({where:{parent_User_id:decoded.id} })
+                let bebe = await enfant.findAll({where:{parent_User_id:decoded.id}, include:User })
                 if(bebe){
-                     (await bebe).every(beb=>beb instanceof enfant)
+                    bebe.every(beb=>beb instanceof enfant)
                     console.log('fdfds'+ JSON.stringify(bebe, null,3))
                     return res.status(200).json(bebe)
                 }
@@ -111,6 +115,17 @@ export class UserController{
             return res.status(401).json({ error: true, message: err.message }).end();
            } 
            
+        }
+        static deleteUser = async(req:Request,res:Response)=>{
+            let authorization = req.headers.authorization, decoded: any;
+            decoded = verify(split(req.headers.authorization), <string>process.env.JWT_KEY);
+            cart.destroy({where:{parent_User_id:decoded.id}})
+            enfant.destroy({where:{parent_User_id:decoded.id}})
+            parent.destroy({where:{User_id:decoded.id}})
+            User.destroy({where:{id:decoded.id}})
+            
+            
+            return res.status(200).json({message: 'votre compte a été supprimer'})  
         }
         
     }
