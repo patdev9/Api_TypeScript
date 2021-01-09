@@ -15,7 +15,8 @@ import parent from './src/models/parent';
 import { Request, Response } from 'express';
 
 
-
+var test: string = "test index.html";
+document.body.innerHTML = test;
 
 const stripe = new Stripe(`${process.env.STRIP_KEY}`,{
     apiVersion: '2020-08-27',
@@ -70,3 +71,4 @@ console.log('hello')
 app.listen(process.env.PORT, () => {
     console.log(`Server run to http://localhost:${process.env.PORT}`);
 })
+
